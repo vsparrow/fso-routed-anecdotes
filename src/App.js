@@ -19,7 +19,9 @@ const Anecdote = ({anecdote})=>(
 	<div>
 		<h2>{anecdote.content}</h2>
 		<div>has {anecdote.votes} votes</div>
-		<div>for more info see {anecdote.info}</div>
+		<br></br>
+		<div>for more info see <a href={anecdote.info} target="_blank">{anecdote.info}</a></div>
+		<br></br>
 	</div>
 )
 
