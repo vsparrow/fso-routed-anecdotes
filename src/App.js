@@ -15,11 +15,21 @@ const Menu = () => {
   )
 }
 
+const Anecdote = ({anecdote})=>(
+	<div>
+		<h2>{anecdote.content}</h2>
+		<div>has {anecdote.votes} votes</div>
+		<div>for more info see {anecdote.info}</div>
+	</div>
+)
+
 const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
-      {anecdotes.map(anecdote => <li key={anecdote.id} >{anecdote.content}</li>)}
+      {anecdotes.map(anecdote => 
+		<li key={anecdote.id}><Link  to={`/anecdotes/${anecdote.id}`}>{anecdote.content}
+		</Link></li>)}
     </ul>
   </div>
 )
@@ -109,8 +119,7 @@ const App = () => {
     setAnecdotes(anecdotes.concat(anecdote))
   }
 
-  const anecdoteById = (id) =>
-    anecdotes.find(a => a.id === id)
+  const anecdoteById = (id) => anecdotes.find(a => a.id === id)
 
   const vote = (id) => {
     const anecdote = anecdoteById(id)
@@ -129,8 +138,11 @@ const App = () => {
 		  <h1>Software anecdotes</h1>
 		  <Menu />
 		  <Route exact path="/" render={()=><AnecdoteList anecdotes={anecdotes} />}/>
+		  <Route exact path="/anecdotes" render={()=><AnecdoteList anecdotes={anecdotes} />}/>
+		  <Route exact path="/anecdotes/:id" render={({match})=><Anecdote anecdote={anecdoteById(match.params.id)}/>}/>
 		  <Route path="/about" render={()=><About />} />
-		  <Route path="/create" render={()=><CreateNew addNew={addNew}/>}/> 	  
+		  <Route path="/create" render={()=><CreateNew addNew={addNew}/>}/>
+		  
 		  <Footer />
 	  </Router>	  
     </div>
