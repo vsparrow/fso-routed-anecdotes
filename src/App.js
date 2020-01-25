@@ -46,7 +46,7 @@ const Footer = () => (
   </div>
 )
 
-const CreateNew = (props) => {
+const CreateNewNoHistory = (props) => {
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
@@ -54,12 +54,9 @@ const CreateNew = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    props.addNew({
-      content,
-      author,
-      info,
-      votes: 0
-    })
+    props.addNew({content,author,info,votes: 0})
+	setContent('');setAuthor('');setInfo('')
+	props.history.push("/");  
   }
 
   return (
@@ -84,6 +81,8 @@ const CreateNew = (props) => {
   )
 
 }
+const CreateNew = withRouter(CreateNewNoHistory) 
+//withRouter wraps the componet with history
 
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
@@ -137,8 +136,5 @@ const App = () => {
     </div>
   )
 }
-		  // <About />
-		  // <CreateNew addNew={addNew} />
-
 
 export default App;
